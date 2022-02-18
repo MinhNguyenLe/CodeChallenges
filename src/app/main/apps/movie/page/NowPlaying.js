@@ -104,7 +104,7 @@ const NowPlaying = () => {
               role="button"
               variant="contained"
               color="secondary"
-              style={{ width: '100%', height: 40, margin: '0 16px' }}
+              style={{ width: '100%', height: 40 }}
             >
               {t('LOAD_MORE')}
             </Button>
