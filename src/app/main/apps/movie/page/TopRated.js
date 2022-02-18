@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -19,7 +19,7 @@ import reducer from '../store';
 import SideBarHeader from './SideBarHeader';
 import ListMovie from './ListMovie';
 
-import { getDataWhenUpdatePageIndex } from '../store/topRatedSlice';
+import { getDataWhenUpdatePageIndex, getDataMovie } from '../store/topRatedSlice';
 
 const Root = styled(FusePageSimple)(({ theme }) => ({
   '& .FusePageSimple-header': {
@@ -63,6 +63,10 @@ const TopRated = () => {
     (state) => state.movie.topRated.listMoviesWithPageIndex
   );
 
+  useEffect(() => {
+    dispatch(getDataMovie());
+  }, []);
+
   const pageIndex = useSelector((state) => state.movie.topRated.pageIndex);
 
   const pageLayout = useRef();
@@ -90,7 +94,7 @@ const TopRated = () => {
               </div>
             </Toolbar>
           </AppBar>
-          <ListMovie />
+          <ListMovie page="top-rated" />
           {listMoviesWithPageIndex.length ? (
             <Button
               onClick={() => dispatch(getDataWhenUpdatePageIndex({ pageIndex: pageIndex + 1 }))}

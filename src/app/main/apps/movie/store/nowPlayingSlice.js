@@ -32,6 +32,25 @@ export const getDataWhenUpdatePageIndex = createAsyncThunk(
   }
 );
 
+export const searchMovie = createAsyncThunk(
+  'movie/movieDetail/searchMovie',
+  async (params, { dispatch, getState }) => {
+    THE_MOVIE_DB.get(url.movieById(params.id), {
+      params: {
+        api_key: apiKey,
+        page: params?.pageIndex || getState().movie.nowPlaying.pageIndex,
+        query: 'outside+the+wire',
+      },
+    })
+      .then(async (res) => {
+        dispatch(setListMoviesWithPageIndex(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
 const initialState = {
   listMoviesWithPageIndex: [],
   pageIndex: 1,
