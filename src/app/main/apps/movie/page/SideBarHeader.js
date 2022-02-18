@@ -44,7 +44,7 @@ export default function SideBarHeader() {
       >
         <Input
           inputRef={searchInput}
-          placeholder={t('ENTER_NAME_PROJECT')}
+          placeholder={t('ENTER_NAME_MOVIE')}
           className="flex flex-1 px-16"
           disableUnderline
           fullWidth

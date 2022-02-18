@@ -56,14 +56,14 @@ const FrameAction = styled('div')(({ theme }) => ({
   paddingBottom: '1rem',
 }));
 
-const TopRated = () => {
+const NowPlaying = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation('movie');
   const listMoviesWithPageIndex = useSelector(
-    (state) => state.movie.topRated.listMoviesWithPageIndex
+    (state) => state.movie.nowPlaying.listMoviesWithPageIndex
   );
 
-  const pageIndex = useSelector((state) => state.movie.topRated.pageIndex);
+  const pageIndex = useSelector((state) => state.movie.nowPlaying.pageIndex);
 
   const pageLayout = useRef();
   const Content = () => {
@@ -85,7 +85,7 @@ const TopRated = () => {
               </Hidden>
               <div className="flex items-center cursor-pointer" role="button" tabIndex={0}>
                 <Typography color="inherit" className="text-18 font-semibold px-4">
-                  {t('TOP_RATED')}
+                  {t('NOW_PLAYING')}
                 </Typography>
               </div>
             </Toolbar>
@@ -139,4 +139,4 @@ const TopRated = () => {
   );
 };
 
-export default withReducer('movie', reducer)(TopRated);
+export default withReducer('movie', reducer)(NowPlaying);
