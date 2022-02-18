@@ -11,6 +11,8 @@ import Button from '@mui/material/Button';
 import withReducer from 'app/store/withReducer';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 
+import FuseLoading from '@fuse/core/FuseLoading';
+
 import { GlobalStyles } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
@@ -106,7 +108,9 @@ const TopRated = () => {
             >
               {t('LOAD_MORE')}
             </Button>
-          ) : null}
+          ) : (
+            <FuseLoading />
+          )}
         </FrameAction>
       </main>
     );

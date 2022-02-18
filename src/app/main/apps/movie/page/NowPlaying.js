@@ -8,6 +8,8 @@ import Icon from '@mui/material/Icon';
 import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
 
+import FuseLoading from '@fuse/core/FuseLoading';
+
 import withReducer from 'app/store/withReducer';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 
@@ -106,7 +108,9 @@ const NowPlaying = () => {
             >
               {t('LOAD_MORE')}
             </Button>
-          ) : null}
+          ) : (
+            <FuseLoading />
+          )}
         </FrameAction>
       </main>
     );
