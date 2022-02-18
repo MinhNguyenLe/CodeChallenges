@@ -23,6 +23,11 @@ const MovieConfig = {
       component: lazy(() => import('./page/TopRated')),
       auth: authRoles.customer,
     },
+    {
+      path: '/apps/movie/now-playing',
+      component: lazy(() => import('./page/NowPlaying')),
+      auth: authRoles.customer,
+    },
   ],
 };
 
