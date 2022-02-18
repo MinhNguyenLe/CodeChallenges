@@ -11,11 +11,24 @@ export const getDataMovie = createAsyncThunk(
       },
     })
       .then(async (res) => {
-        dispatch(setListMoviesWithPageIndex(res.data.results));
+        dispatch(
+          setListMoviesWithPageIndex([
+            ...getState().movie.topRated.listMoviesWithPageIndex,
+            ...res.data.results,
+          ])
+        );
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+);
+
+export const getDataWhenUpdatePageIndex = createAsyncThunk(
+  'movie/topRated/getDataMovie',
+  async (params, { dispatch, getState }) => {
+    dispatch(setPageIndex(params.pageIndex));
+    dispatch(getDataMovie({ pageIndex: params.pageIndex }));
   }
 );
 
@@ -31,9 +44,12 @@ const topRatedSlice = createSlice({
     setListMoviesWithPageIndex: (state, action) => {
       state.listMoviesWithPageIndex = action.payload;
     },
+    setPageIndex: (state, action) => {
+      state.pageIndex = action.payload;
+    },
   },
 });
 
-export const { setListMoviesWithPageIndex } = topRatedSlice.actions;
+export const { setListMoviesWithPageIndex, setPageIndex } = topRatedSlice.actions;
 
 export default topRatedSlice.reducer;

@@ -12,6 +12,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+import { useHistory } from 'react-router-dom';
+
 import { IMAGE_DB } from 'axios/axios-config';
 
 const ExpandMore = styled((props) => {
@@ -28,12 +30,21 @@ const ExpandMore = styled((props) => {
 export default function ItemMovie({ movie }) {
   const [expanded, setExpanded] = React.useState(false);
 
+  const history = useHistory();
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Card sx={{ maxWidth: 220 }} className="mr-24 mb-12 mt-12" style={{ cursor: 'pointer' }}>
+    <Card
+      onClick={() => {
+        history.push(`/apps/movie/detail/${movie.id}`);
+      }}
+      sx={{ maxWidth: 220 }}
+      className="mr-24 mb-12 mt-12"
+      style={{ cursor: 'pointer' }}
+    >
       <CardHeader
         style={{ height: '120px' }}
         action={

@@ -29,9 +29,12 @@ const movieDetailSlice = createSlice({
     setDataMovie: (state, action) => {
       state.movie = action.payload;
     },
+    setDefault: (state, action) => {
+      state.movie = {};
+    },
   },
 });
 
-export const { setDataMovie } = movieDetailSlice.actions;
+export const { setDataMovie, setDefault } = movieDetailSlice.actions;
 
 export default movieDetailSlice.reducer;

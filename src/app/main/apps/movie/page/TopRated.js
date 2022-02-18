@@ -12,12 +12,14 @@ import withReducer from 'app/store/withReducer';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 
 import { GlobalStyles } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import reducer from '../store';
 
 import SideBarHeader from './SideBarHeader';
 import ListMovie from './ListMovie';
+
+import { getDataWhenUpdatePageIndex } from '../store/topRatedSlice';
 
 const Root = styled(FusePageSimple)(({ theme }) => ({
   '& .FusePageSimple-header': {
@@ -54,9 +56,14 @@ const FrameAction = styled('div')(({ theme }) => ({
   paddingBottom: '1rem',
 }));
 
-function TopRated() {
+const TopRated = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation('movie');
+  const listMoviesWithPageIndex = useSelector(
+    (state) => state.movie.topRated.listMoviesWithPageIndex
+  );
+
+  const pageIndex = useSelector((state) => state.movie.topRated.pageIndex);
 
   const pageLayout = useRef();
   const Content = () => {
@@ -84,6 +91,18 @@ function TopRated() {
             </Toolbar>
           </AppBar>
           <ListMovie />
+          {listMoviesWithPageIndex.length ? (
+            <Button
+              onClick={() => dispatch(getDataWhenUpdatePageIndex({ pageIndex: pageIndex + 1 }))}
+              component="button"
+              role="button"
+              variant="contained"
+              color="secondary"
+              style={{ width: '100%', height: 40, margin: '0 16px' }}
+            >
+              {t('LOAD_MORE')}
+            </Button>
+          ) : null}
         </FrameAction>
       </main>
     );
@@ -93,22 +112,6 @@ function TopRated() {
       <div>
         <div style={{ marginBottom: '20px' }}>
           <SideBarHeader />
-          <Button
-            onClick={() => {
-              //   dispatch(
-              //     openDialog({
-              //       children: <CreateProject />,
-              //     })
-              //   );
-            }}
-            component="button"
-            role="button"
-            variant="outlined"
-            color="secondary"
-            style={{ width: '50%', height: 40, margin: '0 16px' }}
-          >
-            {t('CREATE_PROJECT')}
-          </Button>
         </div>
         {
           // <List />
@@ -134,6 +137,6 @@ function TopRated() {
       />
     </>
   );
-}
+};
 
 export default withReducer('movie', reducer)(TopRated);
